@@ -7,6 +7,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://beardvis.github.io',
+  base: '/pozniak-business-card',
   vite: {
     plugins: [tailwindcss()]
   },
@@ -20,16 +22,11 @@ export default defineConfig({
     provider: fontProviders.google(),
     name: "Inter",
     cssVariable: "--font-inter",
-  },
-  {
-    provider: fontProviders.googleicons(),
-    name: "Material Symbols Outlined",
-    cssVariable: "--font-material-symbols",
   }],
 
   integrations: [icon({
       include: {
-        mdi: ["instagram", "facebook", "youtube"],
+        mdi: ["instagram", "facebook", "youtube", "menu", "close", "arrow-forward", "format-quote-close"],
       },
     })]
 });
