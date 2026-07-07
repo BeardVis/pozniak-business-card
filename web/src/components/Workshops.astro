@@ -1,0 +1,60 @@
+---
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section
+  class="py-32 px-6 md:px-16 bg-[#f7f3ef] fade-in-section"
+  id="masterclasses"
+>
+  <div class="max-w-7xl mx-auto">
+    <h2
+      class="font-headline-lg-mobile md:font-headline-lg text-brand-primary mb-16 text-center"
+    >
+      {t("workshops.title")}
+    </h2>
+    <div class="max-w-4xl mx-auto flex flex-col space-y-12">
+      <div
+        class="group border-b border-brand-primary/20 pb-8 flex flex-col md:flex-row justify-between items-start gap-8 hover:border-brand-primary transition-colors"
+      >
+        <div>
+          <div
+            class="font-label-sm text-[#716E11] uppercase tracking-widest mb-2"
+          >
+            Nov 12 - Nov 15, 2024
+          </div>
+          <h3 class="font-headline-md text-brand-primary mb-2">
+            Kyiv, Ukraine
+          </h3>
+          <div class="font-body-md text-brand-primary-on-surface">
+            <p class="font-bold mb-2">What you will get:</p>
+            <ul class="space-y-1 opacity-80">
+              <li>• Vocal technique</li>
+              <li>• Something interesting</li>
+              <li>• Stage presence</li>
+            </ul>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <a
+            class="inline-flex items-center justify-center px-6 py-3 border border-brand-primary font-label-sm uppercase tracking-widest hover:bg-brand-primary hover:text-[#F1EDE4] transition-all"
+            href="#"
+          >
+            Register Now
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 text-center">
+      <p class="font-body-lg text-brand-primary-on-surface mb-8 italic">
+        {t("workshops.individual.title")}
+      </p>
+      <a
+        class="inline-flex items-center justify-center px-8 py-4 bg-brand-primary text-[#F1EDE4] font-label-sm uppercase tracking-widest hover:bg-surface-tint hover:text-brand-primary hover:border-brand-primary transition-colors"
+        href="#"
+      >
+        {t("workshops.individual.request")}
+      </a>
+    </div>
+  </div>
+</section>

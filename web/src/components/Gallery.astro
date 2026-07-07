@@ -1,0 +1,41 @@
+---
+import footerImage from "../assets/images/footer.jpg";
+import { Image } from "astro:assets";
+
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="py-32 px-6 md:px-16 fade-in-section" id="gallery">
+  <div class="max-w-7xl mx-auto">
+    <h2
+      class="font-headline-lg-mobile md:font-headline-lg text-brand-primary mb-12 text-center"
+    >
+      {t("gallery.title")}
+    </h2>
+    <div class="relative group">
+      <div
+        class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide no-scrollbar justify-center"
+        style="scrollbar-width: none;"
+      >
+        <div class="flex-none snap-center max-w-full">
+          <div
+            class="overflow-hidden rounded-sm border border-brand-primary/10 shadow-sm"
+          >
+            <Image
+              src={footerImage}
+              alt="Cover image."
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- <div class="flex justify-center gap-3 mt-4">
+                <div class="w-2 h-2 rounded-full bg-primary-custom"></div>
+                <div class="w-2 h-2 rounded-full bg-primary-custom/30"></div>
+                <div class="w-2 h-2 rounded-full bg-primary-custom/30"></div>
+                <div class="w-2 h-2 rounded-full bg-primary-custom/30"></div>
+            </div> -->
+    </div>
+  </div>
+</section>

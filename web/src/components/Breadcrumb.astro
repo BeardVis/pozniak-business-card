@@ -1,0 +1,44 @@
+---
+interface BreadcrumbSegment {
+  title: string;
+  href?: string;
+}
+
+export interface Props {
+  segments: BreadcrumbSegment[];
+}
+
+const { segments = [] }: Props = Astro.props;
+---
+
+<nav
+  aria-label="Breadcrumb"
+  class="mb-12 font-label text-[11px] uppercase tracking-[0.2em] text-brand-primary-on-surface"
+>
+  <ol class="flex items-center gap-2">
+    {
+      segments.map((segment, index) => {
+        const isLast = index === segments.length - 1;
+
+        return (
+          <li class="flex items-center gap-2">
+            {isLast ? (
+              <span class="text-brand-primary font-bold" aria-current="page">
+                {segment.title}
+              </span>
+            ) : (
+              <a class="hover:text-brand-primary" href={segment.href}>
+                {segment.title}
+              </a>
+            )}
+            {!isLast && (
+              <span class="text-[8px]" aria-hidden="true">
+                /
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
