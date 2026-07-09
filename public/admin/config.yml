@@ -1,0 +1,116 @@
+backend:
+  name: git-gateway
+  repo: next-trip/pozniak-business-card
+  branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/84d63a4a-f4db-4d3d-9aa0-cb12931c3a4b/pkce
+  auth_token_endpoint: /sites/84d63a4a-f4db-4d3d-9aa0-cb12931c3a4b/token
+  gateway_url: https://gateway.decapbridge.com
+
+  # See who did what (optional)
+  commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+# Enable PKCE fields (optional, recommended)
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+# Better Decap + Bridge logo (optional)
+logo_url: ./admin-logo.svg
+
+publish_mode: editorial_workflow
+
+media_folder: "src/assets/images"
+public_folder: "src/assets/images"
+
+i18n:
+  structure: multiple_folders
+  locales: [en, uk, cs]
+  default_locale: en
+
+collections:
+  - name: "settings"
+    label: "Pages"
+    delete: false
+    i18n:
+      structure: single_file
+      locales: [en, uk, cs]
+    files:
+      - name: "homepage"
+        label: "Homepage Content"
+        file: "/src/data/homepage.json"
+        i18n: true
+        fields:
+          - {
+              label: "Hero Subtitle",
+              name: "hero_subtitle",
+              widget: "string",
+              i18n: true,
+            }
+          - {
+              label: "About title",
+              name: "about_title",
+              widget: "string",
+              i18n: true,
+            }
+          - {
+              label: "About body",
+              name: "about_description",
+              widget: "richtext",
+              i18n: true,
+            }
+      - name: "bio"
+        label: "Bio Content"
+        file: "/src/data/bio.json"
+        i18n: true
+        fields:
+          - { label: "Title", name: "title", widget: "string", i18n: true }
+          - {
+              label: "Content",
+              name: "content",
+              widget: "richtext",
+              i18n: true,
+            }
+  - label: "Events"
+    name: "events"
+    folder: "src/content/events"
+    create: true
+    i18n: true
+    fields:
+      - { label: "Title", name: "title", widget: "string", i18n: true }
+      - { label: "Event Date", name: "date", widget: "datetime", i18n: true }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "richtext",
+          i18n: true,
+        }
+  - label: "Workshops"
+    name: "workshops"
+    folder: "src/content/workshops"
+    create: true
+    i18n: true
+    fields:
+      - { label: "Title", name: "title", widget: "string", i18n: true }
+      - {
+          label: "Start Date",
+          name: "start_date",
+          widget: "datetime",
+          i18n: true,
+        }
+      - { label: "End Date", name: "end_date", widget: "datetime", i18n: true }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "richtext",
+          i18n: true,
+        }

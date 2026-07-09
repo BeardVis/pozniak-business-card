@@ -1,0 +1,63 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations(Astro.currentLocale);
+---
+
+<footer
+  class="relative z-10 w-full border-t border-brand-primary/10 bg-brand-tertiary dark:bg-brand-tertiary"
+  id="footer"
+>
+  <div
+    class="max-w-7xl mx-auto px-6 md:px-16 py-16 flex flex-col md:flex-row justify-between items-center gap-gutter"
+  >
+    <div
+      class="font-headline-lg text-brand-primary text-center md:text-left mb-6 md:mb-0"
+    >
+      {t("site.hero_name")}
+    </div>
+    <nav class="flex gap-6 mb-6 md:mb-0">
+      <a
+        aria-label="Email"
+        class="text-brand-primary-on-surface hover:text-brand-secondary transition-colors duration-200"
+        href="mailto:vpozniakmusic@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="mdi:email-outline" width="24" height="24" />
+      </a>
+      <a
+        aria-label="Instagram"
+        class="text-brand-primary-on-surface hover:text-brand-secondary transition-colors duration-200"
+        href="https://www.instagram.com/vpozniak_music"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="mdi:instagram" width="24" height="24" />
+      </a>
+      <a
+        aria-label="Facebook"
+        class="text-brand-primary-on-surface hover:text-brand-secondary transition-colors duration-200"
+        href="https://www.facebook.com/profile.php?id=61575866916326"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="mdi:facebook" width="24" height="24" />
+      </a>
+      <a
+        aria-label="Youtube"
+        class="text-brand-primary-on-surface hover:text-brand-secondary transition-colors duration-200"
+        href="https://youtube.com/@veronikapozniak?si=A26cpsOYInxNovC7"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="mdi:youtube" width="24" height="24" />
+      </a>
+    </nav>
+    <div
+      class="font-label-sm uppercase text-brand-primary-on-surface text-center md:text-right"
+    >
+      © 2026 Veronika Pozniak. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
