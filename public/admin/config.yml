@@ -114,3 +114,28 @@ collections:
           widget: "richtext",
           i18n: true,
         }
+  - name: "gallery"
+    label: "Gallery"
+    files:
+      - file: "/src/data/gallery.json"
+        label: "Gallery"
+        name: "gallery"
+        fields:
+          - label: "Carousel Gallery"
+            name: "carousel_photos"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: "Photo", name: "image", widget: "image" }
+              - {
+                  label: "Alt Text",
+                  name: "alt",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Caption",
+                  name: "caption",
+                  widget: "string",
+                  required: false,
+                }

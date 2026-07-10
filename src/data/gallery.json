@@ -1,0 +1,13 @@
+{
+  "carousel_photos": [
+    {
+      "image": "src/assets/images/footer.jpg"
+    },
+    {
+      "image": "src/assets/images/cover.jpg"
+    },
+    {
+      "image": "src/assets/images/about-side.jpg"
+    }
+  ]
+}
