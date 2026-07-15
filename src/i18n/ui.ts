@@ -33,6 +33,12 @@ const ui = {
 
     // Gallery
     "gallery.title": "Gallery",
+    "video.title": "Videos",
+
+    // Press
+    "press.listen_radio": "Radio Interview [CS]",
+    "press.read_article": "Web Interview [UK]",
+    "press.download_article": "Magazine Interview [CS]",
   },
   uk: {
     // General
@@ -60,6 +66,12 @@ const ui = {
 
     // Gallery
     "gallery.title": "Галерея",
+    "video.title": "Відео",
+
+    // Press
+    "press.listen_radio": "Радіоінтерв'ю [CS]",
+    "press.read_article": "Інтерв'ю на сайті [UK]",
+    "press.download_article": "Інтерв'ю в журналі [PDF/CS]",
   },
   cs: {
     // General
@@ -87,6 +99,12 @@ const ui = {
 
     // Gallery
     "gallery.title": "Galerie",
+    "video.title": "Videa",
+
+    // Press
+    "press.listen_radio": "Rozhlasový rozhovor [CS]",
+    "press.read_article": "Rozhovor na webu [UK]",
+    "press.download_article": "Rozhovor v časopise [PDF/CS]",
   },
 } as const;
 

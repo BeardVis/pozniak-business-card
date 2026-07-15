@@ -19,37 +19,34 @@ const sortedWorkshops = allWorkshops.sort(
   id="masterclasses"
 >
   <div class="max-w-7xl mx-auto">
+    <h1 class="text-brand-primary mb-16 text-center">{t("workshops.title")}</h1>
     {
       sortedWorkshops.map((workshop: any) => (
-    <h1
-      class="text-brand-primary mb-16 text-center"
-    >
-      {workshop.data.title}
-    </h1>
-    <div class="max-w-4xl mx-auto flex flex-col space-y-12">
-      <div
-        class="group border-b border-brand-primary/20 pb-8 flex flex-col md:flex-row justify-between items-start gap-8 hover:border-brand-primary transition-colors"
-      >
-        <div>
-          <div
-            class="font-label-sm text-[#716E11] uppercase tracking-widest mb-2"
-          >
-            {workshop.data.start_date.toLocaleDateString()} - {workshop.data.end_date.toLocaleDateString()}
+        <div class="max-w-4xl mx-auto flex flex-col space-y-12">
+          <div class="group border-b border-brand-primary/20 pb-8 flex flex-col md:flex-row justify-between items-start gap-8 hover:border-brand-primary transition-colors">
+            <div>
+              <h2 class="mb-2">{workshop.data.title}</h2>
+              <div class="font-label-sm text-[#716E11] uppercase tracking-widest mb-2">
+                {workshop.data.start_date.toLocaleDateString()} -{" "}
+                {workshop.data.end_date.toLocaleDateString()}
+              </div>
+              <article
+                class="prose"
+                set:html={marked.parse(workshop.data.description)}
+              />
+            </div>
+            <div class="flex items-center w-full md:w-0 justify-end">
+              <a
+                class="text-nowrap inline-flex items-center justify-center px-6 py-3 border border-brand-primary font-label-sm uppercase tracking-widest hover:bg-brand-primary text-brand-primary hover:text-[#F1EDE4] transition-all"
+                href="#"
+              >
+                Register Now
+              </a>
+            </div>
           </div>
-           <article class="prose" set:html={marked.parse(workshop.data.description)} />
         </div>
-        <div class="flex items-center w-full md:w-0 justify-end">
-          <a
-            class="text-nowrap inline-flex items-center justify-center px-6 py-3 border border-brand-primary font-label-sm uppercase tracking-widest hover:bg-brand-primary text-brand-primary hover:text-[#F1EDE4] transition-all"
-            href="#"
-          >
-            Register Now
-          </a>
-        </div>
-      </div>
-    </div>
-    ))
-  }
+      ))
+    }
     <div class="mt-16 text-center">
       <p class="font-body-lg text-brand-primary-on-surface mb-8 italic">
         {t("workshops.individual.title")}

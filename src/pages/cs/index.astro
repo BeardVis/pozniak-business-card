@@ -9,12 +9,15 @@ import Layout from "../../layouts/Layout.astro";
 import Gallery from "../../components/Gallery.astro";
 import Workshops from "../../components/Workshops.astro";
 
+import { useTranslations } from "../../i18n/ui";
+const t = useTranslations(Astro.currentLocale);
+
 import { getImage } from "astro:assets";
 import backgroundImage from "../../assets/bg.svg";
 const optimizedBackground = await getImage({ src: backgroundImage });
 ---
 
-<Layout title="Home">
+<Layout title={t("site.hero_name")}>
   <Header />
   <main>
     <div
