@@ -8,9 +8,12 @@ const allEvents = await getCollection("events", ({ id }: any) => {
   return id.startsWith(Astro.currentLocale);
 });
 
-const sortedEvents = allEvents.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const sortedEvents = [...allEvents].sort((a, b) => {
+  const posA = a.data.position ?? -Infinity;
+  const posB = b.data.position ?? -Infinity;
+
+  return posA - posB;
+});
 
 import { useTranslations } from "../i18n/ui";
 const t = useTranslations(Astro.currentLocale);

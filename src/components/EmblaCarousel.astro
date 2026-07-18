@@ -4,13 +4,24 @@ import { Icon } from "astro-icon/components";
 interface Props {
   showDots?: boolean;
   showArrows?: boolean;
+  loop?: boolean;
+  autoScroll?: boolean;
 }
 
-const { showDots = false, showArrows = false } = Astro.props;
+const {
+  showDots = false,
+  showArrows = false,
+  loop = false,
+  autoScroll = false,
+} = Astro.props;
 ---
 
-<div class="embla">
-  <div class="embla__viewport">
+<dev class="embla">
+  <embla-carousel
+    data-loop={loop}
+    data-auto-scroll={autoScroll}
+    class="embla__viewport"
+  >
     <div class="embla__container">
       <slot />
     </div>
@@ -38,8 +49,8 @@ const { showDots = false, showArrows = false } = Astro.props;
         </div>
       )
     }
-  </div>
-</div>
+  </embla-carousel>
+</dev>
 
 <style is:global>
   .embla {
@@ -53,13 +64,13 @@ const { showDots = false, showArrows = false } = Astro.props;
 
   .embla__viewport {
     overflow: hidden;
+    display: block;
   }
 
   .embla__container {
     display: flex;
     touch-action: pan-y pinch-zoom;
     margin-left: calc(var(--slide-spacing) * -1);
-    /* height: 600px; */
     max-height: 100vh;
   }
 
@@ -182,7 +193,8 @@ const { showDots = false, showArrows = false } = Astro.props;
 <script>
   import "@justinribeiro/lite-youtube";
   import EmblaCarousel from "embla-carousel";
-  import type { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
+  import type { EmblaPluginType, EmblaCarouselType } from "embla-carousel";
+  import AutoScroll from "embla-carousel-auto-scroll";
 
   function addDotButtonAndClickHandlers(
     emblaApi: EmblaCarouselType,
@@ -267,39 +279,54 @@ const { showDots = false, showArrows = false } = Astro.props;
     }
   }
 
-  function initCarousels() {
-    const OPTIONS: EmblaOptionsType = { loop: true };
-    const emblaNodes = document.querySelectorAll(".embla");
+  class EmblaCarouselElement extends HTMLElement {
+    #emblaApi: EmblaCarouselType | null = null;
 
-    emblaNodes.forEach((emblaNode) => {
-      const viewportNode = emblaNode.querySelector(
-        ".embla__viewport",
-      ) as HTMLElement;
+    connectedCallback() {
+      const container = this.querySelector(".embla__container");
+      if (!container) return;
 
-      if (!viewportNode) return;
+      const loop = this.dataset.loop === "true";
+      const autoScroll = this.dataset.autoScroll === "true";
 
-      const dotsNode = emblaNode.querySelector(".embla__dots") as HTMLElement;
-      const prevBtn = emblaNode.querySelector(
+      if (loop && autoScroll) {
+        const originalSlides = Array.from(container.children);
+        if (originalSlides.length > 0) {
+          const targetCount = Math.max(originalSlides.length * 3, 6);
+          while (container.children.length < targetCount) {
+            originalSlides.forEach((slide) => {
+              container.appendChild(slide.cloneNode(true));
+            });
+          }
+        }
+      }
+
+      let userPlugins: EmblaPluginType[] = [];
+      if (autoScroll)
+        userPlugins.push(AutoScroll({ playOnInit: true, speed: 1 }));
+
+      this.#emblaApi = EmblaCarousel(this, { loop: loop }, userPlugins);
+
+      const dotsNode = this.querySelector(".embla__dots") as HTMLElement | null;
+      const prevBtn = this.querySelector(
         ".embla__button--prev",
       ) as HTMLElement | null;
-      const nextBtn = emblaNode.querySelector(
+      const nextBtn = this.querySelector(
         ".embla__button--next",
       ) as HTMLElement | null;
 
-      const emblaApi = EmblaCarousel(viewportNode, OPTIONS);
+      if (dotsNode) addDotButtonAndClickHandlers(this.#emblaApi, dotsNode);
+      if (prevBtn && nextBtn)
+        addPrevNextButtonClickHandlers(this.#emblaApi, prevBtn, nextBtn);
+    }
 
-      if (dotsNode) {
-        addDotButtonAndClickHandlers(emblaApi, dotsNode);
-      }
-
-      if (prevBtn && nextBtn) {
-        addPrevNextButtonClickHandlers(emblaApi, prevBtn, nextBtn);
-      }
-    });
+    disconnectedCallback() {
+      this.#emblaApi?.destroy();
+      this.#emblaApi = null;
+    }
   }
 
-  // Initialize on initial load
-  initCarousels();
-  // Initialize on ViewTransitions page load if applicable
-  document.addEventListener("astro:page-load", initCarousels);
+  if (!customElements.get("embla-carousel")) {
+    customElements.define("embla-carousel", EmblaCarouselElement);
+  }
 </script>

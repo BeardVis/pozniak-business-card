@@ -1,10 +1,20 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
 import { marked } from "marked";
 
-import pressData from "../data/press.json";
-const press =
-  pressData[(Astro.currentLocale ?? "en") as keyof typeof pressData];
+const pressCollection = await getCollection("press", ({ id }: any) => {
+  return id.startsWith(Astro.currentLocale);
+});
+
+const sortedPress = [...pressCollection].sort((a, b) => {
+  const posA = a.data.position ?? -Infinity;
+  const posB = b.data.position ?? -Infinity;
+
+  return posA - posB;
+});
+
+import EmblaCarousel from "./EmblaCarousel.astro";
 
 import { useTranslations } from "../i18n/ui";
 const t = useTranslations(Astro.currentLocale);
@@ -12,10 +22,29 @@ const t = useTranslations(Astro.currentLocale);
 
 <section class="py-32 px-6 md:px-16 fade-in-section" id="press">
   <div class="mx-auto grid justify-center text-center text-brand-primary">
-    <article
-      class="prose font-body-md text-brand-primary-on-surface"
-      set:html={marked.parse(press.press_quote)}
-    />
+
+    {
+      sortedPress.length > 1 ? (
+        <EmblaCarousel autoScroll={true} loop={true}>
+          {
+            sortedPress.map((press) => (
+              <article
+                class="embla__slide prose font-body-md text-brand-primary-on-surface"
+                set:html={marked.parse(press.data.quote)}
+              />
+            ))
+          }
+        </EmblaCarousel>
+      ) : (
+        sortedPress.map((press) => (
+          <article
+            class="embla__slide prose font-body-md text-brand-primary-on-surface"
+            set:html={marked.parse(press.data.quote)}
+          />
+        ))
+      )
+    }
+
     <div
       class="flex flex-col items-center md:flex-row justify-center mt-12 gap-4 md:gap-8 w-full"
     >

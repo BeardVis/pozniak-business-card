@@ -23,7 +23,7 @@ const ui = {
     "about.cta": "Learn more",
 
     // Events
-    "events.title": "Upcoming Performances",
+    "events.title": "Events",
     "events.tickets": "Tickets",
 
     // Workshops
@@ -56,7 +56,7 @@ const ui = {
     "about.cta": "Дізнатись більше",
 
     // Events
-    "events.title": "Майбутні вистави",
+    "events.title": "Події",
     "events.tickets": "Квитки",
 
     // Workshops
@@ -89,7 +89,7 @@ const ui = {
     "about.cta": "Zjistit více",
 
     // Events
-    "events.title": "Nadcházející vystoupení",
+    "events.title": "Události",
     "events.tickets": "Vstupenky",
 
     // Workshops

@@ -9,9 +9,12 @@ const allWorkshops = await getCollection("workshops", ({ id }: any) => {
   return id.startsWith(Astro.currentLocale);
 });
 
-const sortedWorkshops = allWorkshops.sort(
-  (a, b) => b.data.start_date.valueOf() - a.data.start_date.valueOf(),
-);
+const sortedWorkshops = [...allWorkshops].sort((a, b) => {
+  const posA = a.data.position ?? -Infinity;
+  const posB = b.data.position ?? -Infinity;
+
+  return posA - posB;
+});
 ---
 
 <section

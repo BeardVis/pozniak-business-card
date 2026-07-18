@@ -68,17 +68,6 @@ collections:
               widget: "richtext",
               i18n: true,
             }
-      - name: "press"
-        label: "Press Quote"
-        file: "/src/data/press.json"
-        i18n: true
-        fields:
-          - {
-              label: "Press Quote",
-              name: "press_quote",
-              widget: "richtext",
-              i18n: true,
-            }
       - name: "bio"
         label: "Bio Content"
         file: "/src/data/bio.json"
@@ -96,7 +85,15 @@ collections:
     folder: "src/content/events"
     create: true
     i18n: true
+    summary: "#{{fields.position}} | {{fields.title}} - {{fields.date}}"
     fields:
+      - {
+          lable: "Position",
+          name: "position",
+          widget: "number",
+          default: 1,
+          i18n: true,
+        }
       - { label: "Title", name: "title", widget: "string", i18n: true }
       - { label: "Event Date", name: "date", widget: "datetime", i18n: true }
       - {
@@ -110,7 +107,15 @@ collections:
     folder: "src/content/workshops"
     create: true
     i18n: true
+    summary: "#{{fields.position}} | {{fields.title}}"
     fields:
+      - {
+          lable: "Position",
+          name: "position",
+          widget: "number",
+          default: 1,
+          i18n: true,
+        }
       - { label: "Title", name: "title", widget: "string", i18n: true }
       - {
           label: "Start Date",
@@ -161,3 +166,18 @@ collections:
             fields:
               - { label: "Youtube video URL", name: "url", widget: "string" }
               - { label: "Video title", name: "title", widget: "string" }
+  - label: "Press Quotes"
+    name: "press"
+    folder: "src/content/press"
+    create: true
+    i18n: true
+    summary: "#{{fields.position}}"
+    fields:
+      - {
+          lable: "Position",
+          name: "position",
+          widget: "number",
+          default: 1,
+          i18n: true,
+        }
+      - { label: "Quote", name: "quote", widget: "richtext", i18n: true }

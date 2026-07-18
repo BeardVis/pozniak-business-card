@@ -33,7 +33,7 @@ function youTubeGetID(url: string) {
       {t("gallery.title")}
     </h1>
 
-    <EmblaCarousel showArrows={true}>
+    <EmblaCarousel showArrows={true} loop={true}>
       {
         galleryData.carousel_photos.map((photo: any) => {
           const imagePath = "/" + photo.image;
@@ -57,17 +57,18 @@ function youTubeGetID(url: string) {
   </div>
 </section>
 
-<section class="py-16 px-6 md:px-16 bg-[#f7f3ef] fade-in-section" id="gallery">
+<section class="py-16 px-6 md:px-16 bg-[#f7f3ef] fade-in-section">
   <div class="max-w-7xl mx-auto">
     <h1 class="text-brand-primary mb-12 text-center">{t("video.title")}</h1>
-    <EmblaCarousel showDots={true} showArrows={true}>
+    <EmblaCarousel showDots={true} showArrows={true} loop={true}>
       {
         videos.video_list.map((video) => {
           const videoId = youTubeGetID(video.url);
           return (
-            <div class="embla__slide">
+            <div class="embla__slide flex justify-center">
               {videoId ? (
                 <lite-youtube
+                  style="width: auto; height: var(--slide-height); padding-left: var(--slide-spacing);"
                   videotitle={video.title}
                   videoid={videoId}
                   posterquality="sddefault"

@@ -146,12 +146,10 @@ blockquote {
 
 blockquote::before {
   content: "\201D";
-  display: block;
+  display: inline-block;
   font-family: var(--font-eb-garamond);
-  font-size: 32rem;
-  line-height: 1;
   font-size: 8rem;
-  line-height: 1;
-  margin-bottom: -8rem;
+  line-height: 0.1;
   color: var(--color-brand-primary);
+  vertical-align: bottom;
 }
