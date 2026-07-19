@@ -24,7 +24,6 @@ const ui = {
 
     // Events
     "events.title": "Events",
-    "events.tickets": "Tickets",
 
     // Workshops
     "workshops.title": "Workshops",
@@ -57,7 +56,6 @@ const ui = {
 
     // Events
     "events.title": "Події",
-    "events.tickets": "Квитки",
 
     // Workshops
     "workshops.title": "Майстер-класи",
@@ -90,7 +88,6 @@ const ui = {
 
     // Events
     "events.title": "Události",
-    "events.tickets": "Vstupenky",
 
     // Workshops
     "workshops.title": "Workshopy",

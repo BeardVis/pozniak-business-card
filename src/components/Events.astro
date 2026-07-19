@@ -41,9 +41,9 @@ const t = useTranslations(Astro.currentLocale);
             <div class="flex items-center gap-4">
               <a
                 class="font-label-sm text-label-sm text-brand-primary uppercase tracking-widest border-b border-transparent group-hover:border-brand-primary transition-all flex items-center gap-2"
-                href="#"
+                href={event.data.button_link}
               >
-                {t("events.tickets")}
+                {event.data.button_text}
                 <Icon name="mdi:arrow-forward" width="16" height="16" />
               </a>
             </div>

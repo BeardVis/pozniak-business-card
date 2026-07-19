@@ -8,6 +8,8 @@ const eventCollection = defineCollection({
     position: z.number().optional(),
     title: z.string(),
     date: z.date(),
+    button_text: z.string(),
+    button_link: z.string(),
     description: z.string(),
   }),
 });
@@ -19,6 +21,8 @@ const workshopCollection = defineCollection({
     title: z.string(),
     start_date: z.date(),
     end_date: z.date(),
+    button_text: z.string(),
+    button_link: z.string(),
     description: z.string(),
   }),
 });

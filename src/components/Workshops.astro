@@ -41,9 +41,9 @@ const sortedWorkshops = [...allWorkshops].sort((a, b) => {
             <div class="flex items-center w-full md:w-0 justify-end">
               <a
                 class="text-nowrap inline-flex items-center justify-center px-6 py-3 border border-brand-primary font-label-sm uppercase tracking-widest hover:bg-brand-primary text-brand-primary hover:text-[#F1EDE4] transition-all"
-                href="#"
+                href={workshop.data.button_link}
               >
-                Register Now
+                {workshop.data.button_text}
               </a>
             </div>
           </div>

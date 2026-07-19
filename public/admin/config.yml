@@ -97,6 +97,18 @@ collections:
       - { label: "Title", name: "title", widget: "string", i18n: true }
       - { label: "Event Date", name: "date", widget: "datetime", i18n: true }
       - {
+          label: "Event button text",
+          name: "button_text",
+          widget: "string",
+          i18n: true,
+        }
+      - {
+          label: "Event button link",
+          name: "button_link",
+          widget: "string",
+          i18n: true,
+        }
+      - {
           label: "Description",
           name: "description",
           widget: "richtext",
@@ -124,6 +136,18 @@ collections:
           i18n: true,
         }
       - { label: "End Date", name: "end_date", widget: "datetime", i18n: true }
+      - {
+          label: "Event button text",
+          name: "button_text",
+          widget: "string",
+          i18n: true,
+        }
+      - {
+          label: "Event button link",
+          name: "button_link",
+          widget: "string",
+          i18n: true,
+        }
       - {
           label: "Description",
           name: "description",
