@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { locales } from "../i18n/ui";
+import { locales, defaultLocale } from "@i18n/ui";
 
 interface Props {
   variant?: "dropdown" | "inline";
@@ -17,17 +17,27 @@ const currentPath = pathWithoutBase.replace(
   new RegExp(`^${Astro.currentLocale}/?`),
   "",
 );
+
+const localeCodes = locales.map((l) => l.code);
 ---
 
 {
   variant === "inline" ? (
-    <div class:list={["text-brand-primary", className]}>
+    <div
+      class:list={["text-brand-primary", className]}
+      data-supported-locales={JSON.stringify(localeCodes)}
+      data-default-locale={defaultLocale}
+    >
       {locales.map((locale, index) => (
         <>
           {Astro.currentLocale === locale.code ? (
             <span class="font-bold">{locale.code.toUpperCase()}</span>
           ) : (
-            <a href={getRelativeLocaleUrl(locale.code, currentPath)}>
+            <a
+              href={getRelativeLocaleUrl(locale.code, currentPath)}
+              class="lang-link"
+              data-lang={locale.code}
+            >
               {locale.code.toUpperCase()}
             </a>
           )}
@@ -36,7 +46,11 @@ const currentPath = pathWithoutBase.replace(
       ))}
     </div>
   ) : (
-    <div class:list={["text-brand-primary", "lang-dropdown", className]}>
+    <div
+      class:list={["text-brand-primary", "lang-dropdown", className]}
+      data-supported-locales={JSON.stringify(localeCodes)}
+      data-default-locale={defaultLocale}
+    >
       <button
         class="p-3 uppercase rounded-sm cursor-pointer flex items-center gap-2"
         aria-label="Select Language"
@@ -49,7 +63,11 @@ const currentPath = pathWithoutBase.replace(
           .filter((locale) => locale.code !== Astro.currentLocale)
           .map((locale) => (
             <li>
-              <a href={getRelativeLocaleUrl(locale.code, currentPath)}>
+              <a
+                href={getRelativeLocaleUrl(locale.code, currentPath)}
+                class="lang-link"
+                data-lang={locale.code}
+              >
                 {locale.label}
               </a>
             </li>
@@ -122,3 +140,60 @@ const currentPath = pathWithoutBase.replace(
     transform: rotate(180deg);
   }
 </style>
+
+<script>
+  document.querySelectorAll(".lang-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const selectedLang = link.getAttribute("data-lang");
+      if (selectedLang) {
+        localStorage.setItem("user-language", selectedLang);
+      }
+    });
+  });
+
+  const savedLang = localStorage.getItem("user-language");
+  const currentLang = document.documentElement.lang;
+
+  const wrapper = document.querySelector("[data-supported-locales]");
+  const defaultLocale =
+    (wrapper ? wrapper.getAttribute("data-default-locale") : null) || "en";
+  const supportedLocalesRaw = wrapper
+    ? wrapper.getAttribute("data-supported-locales")
+    : null;
+  const supportedLocales = supportedLocalesRaw
+    ? JSON.parse(supportedLocalesRaw)
+    : ["en", "uk", "cs"];
+
+  let preferredLocale = null;
+  if (typeof navigator !== "undefined") {
+    const browserLanguages = navigator.languages || [navigator.language];
+    for (const lang of browserLanguages) {
+      const code = lang.split("-")[0].toLowerCase();
+      if (supportedLocales.includes(code)) {
+        preferredLocale = code;
+        break;
+      }
+    }
+  }
+
+  const targetLang = savedLang || preferredLocale || defaultLocale;
+
+  if (
+    targetLang &&
+    targetLang !== defaultLocale &&
+    currentLang === defaultLocale
+  ) {
+    const base =
+      import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL;
+    let path = window.location.pathname;
+    if (base && path.startsWith(base)) {
+      path = path.slice(base.length);
+    }
+    if (path.startsWith("/")) {
+      path = path.slice(1);
+    }
+    const search = window.location.search;
+    const hash = window.location.hash;
+    window.location.href = `${base}/${targetLang}/${path}${search}${hash}`;
+  }
+</script>
